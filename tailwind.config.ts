@@ -19,6 +19,12 @@ export default {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        
+        // Glassmorphism colors
+        lavender: "hsl(var(--lavender))",
+        coral: "hsl(var(--coral))",
+        'light-pink': "hsl(var(--light-pink))",
+        
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",

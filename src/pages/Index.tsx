@@ -1,12 +1,124 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import HeroSection from "@/components/HeroSection";
+import ImageUpload from "@/components/ImageUpload";
+import TextInput from "@/components/TextInput";
+import MainImageDisplay from "@/components/MainImageDisplay";
+import PreviewThumbnails from "@/components/PreviewThumbnails";
+import { Button } from "@/components/ui/button";
+import { Sparkles } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+
+interface PreviewThumbnail {
+  id: number;
+  url?: string;
+  isLoading: boolean;
+}
 
 const Index = () => {
+  const [uploadedImage, setUploadedImage] = useState<File | null>(null);
+  const [description, setDescription] = useState("");
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [mainThumbnail, setMainThumbnail] = useState<string>("");
+  const [previewThumbnails, setPreviewThumbnails] = useState<PreviewThumbnail[]>([]);
+  const { toast } = useToast();
+
+  const handleImageUpload = (file: File) => {
+    setUploadedImage(file);
+  };
+
+  const handleTextChange = (text: string) => {
+    setDescription(text);
+  };
+
+  const simulateGeneration = async () => {
+    if (!uploadedImage || !description.trim()) {
+      toast({
+        title: "Missing Information",
+        description: "Please upload an image and provide a description.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsGenerating(true);
+    setMainThumbnail("");
+    setPreviewThumbnails([
+      { id: 1, isLoading: true },
+      { id: 2, isLoading: true },
+      { id: 3, isLoading: true },
+    ]);
+
+    // Simulate AI generation delay
+    await new Promise(resolve => setTimeout(resolve, 2000));
+
+    // Generate placeholder thumbnails (in real app, this would be API calls)
+    const placeholderUrl = URL.createObjectURL(uploadedImage);
+    
+    setMainThumbnail(placeholderUrl);
+    
+    // Simulate staggered loading of previews
+    for (let i = 1; i <= 3; i++) {
+      setTimeout(() => {
+        setPreviewThumbnails(prev => 
+          prev.map(thumb => 
+            thumb.id === i 
+              ? { ...thumb, url: placeholderUrl, isLoading: false }
+              : thumb
+          )
+        );
+      }, 500 * i);
+    }
+
+    setIsGenerating(false);
+    
+    toast({
+      title: "Thumbnails Generated!",
+      description: "Your AI-powered thumbnails are ready for download.",
+    });
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen">
+      <HeroSection />
+      
+      <main className="max-w-7xl mx-auto px-6 pb-20">
+        <div className="grid lg:grid-cols-2 gap-12">
+          {/* Left Section - Inputs */}
+          <div className="space-y-8">
+            <div className="glass-card">
+              <h2 className="text-2xl font-bold mb-6 text-foreground">Create Your Thumbnail</h2>
+              
+              <div className="space-y-6">
+                <ImageUpload onImageUpload={handleImageUpload} />
+                <TextInput onTextChange={handleTextChange} />
+                
+                <Button
+                  onClick={simulateGeneration}
+                  disabled={isGenerating}
+                  className="w-full glass-glow hover:scale-105 transition-all duration-200"
+                  size="lg"
+                >
+                  <Sparkles className="mr-2 h-5 w-5" />
+                  {isGenerating ? "Generating..." : "Generate Thumbnails"}
+                </Button>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Section - Outputs */}
+          <div className="space-y-8">
+            <MainImageDisplay 
+              isGenerating={isGenerating} 
+              generatedImage={mainThumbnail}
+            />
+            
+            <PreviewThumbnails 
+              isGenerating={isGenerating}
+              thumbnails={previewThumbnails}
+            />
+          </div>
+        </div>
+      </main>
     </div>
   );
 };
