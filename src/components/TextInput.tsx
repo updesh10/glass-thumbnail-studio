@@ -15,8 +15,8 @@ const TextInput = ({ onTextChange }: TextInputProps) => {
   };
 
   return (
-    <div className="space-y-4">
-      <h3 className="text-lg font-semibold text-foreground">Describe Your Thumbnail</h3>
+    <div className="space-y-6">
+      <h3 className="text-xl font-semibold text-foreground">Describe Your Thumbnail</h3>
       
       <div className="glass-card">
         <Textarea

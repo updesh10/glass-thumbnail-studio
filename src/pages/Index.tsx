@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Navigation from "@/components/Navigation";
 import HeroSection from "@/components/HeroSection";
 import ImageUpload from "@/components/ImageUpload";
 import TextInput from "@/components/TextInput";
@@ -79,27 +80,28 @@ const Index = () => {
 
   return (
     <div className="min-h-screen">
+      <Navigation />
       <HeroSection />
       
       <main className="max-w-7xl mx-auto px-6 pb-20">
-        <div className="grid lg:grid-cols-2 gap-12">
+        <div className="grid lg:grid-cols-2 gap-16">
           {/* Left Section - Inputs */}
           <div className="space-y-8">
-            <div className="glass-card">
-              <h2 className="text-2xl font-bold mb-6 text-foreground">Create Your Thumbnail</h2>
+            <div className="glass-card hover:glass-glow transition-all duration-300">
+              <h2 className="text-3xl font-bold mb-8 gradient-text">Create Your Thumbnail</h2>
               
-              <div className="space-y-6">
+              <div className="space-y-8">
                 <ImageUpload onImageUpload={handleImageUpload} />
                 <TextInput onTextChange={handleTextChange} />
                 
                 <Button
                   onClick={simulateGeneration}
                   disabled={isGenerating}
-                  className="w-full glass-glow hover:scale-105 transition-all duration-200"
+                  className="w-full glass-glow hover:scale-105 transition-all duration-300 py-6 text-lg font-semibold"
                   size="lg"
                 >
-                  <Sparkles className="mr-2 h-5 w-5" />
-                  {isGenerating ? "Generating..." : "Generate Thumbnails"}
+                  <Sparkles className="mr-3 h-6 w-6" />
+                  {isGenerating ? "Generating Magic..." : "Generate Thumbnails"}
                 </Button>
               </div>
             </div>

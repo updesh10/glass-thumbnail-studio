@@ -22,10 +22,10 @@ const MainImageDisplay = ({ isGenerating, generatedImage }: MainImageDisplayProp
   };
 
   return (
-    <div className="space-y-4">
-      <h3 className="text-lg font-semibold text-foreground">Main Thumbnail (1280×720)</h3>
+    <div className="space-y-6">
+      <h3 className="text-xl font-semibold text-foreground">Main Thumbnail (1280×720)</h3>
       
-      <div className="glass-card p-4">
+      <div className="glass-card p-6 hover:glass-glow transition-all duration-300">
         <div 
           className="relative bg-muted/20 rounded-xl overflow-hidden"
           style={{ aspectRatio: '1280/720' }}

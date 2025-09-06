@@ -32,8 +32,8 @@ const PreviewThumbnails = ({ isGenerating, thumbnails }: PreviewThumbnailsProps)
   };
 
   return (
-    <div className="space-y-4">
-      <h3 className="text-lg font-semibold text-foreground">Preview Variations</h3>
+    <div className="space-y-6">
+      <h3 className="text-xl font-semibold text-foreground">Preview Variations</h3>
       
       <div className="grid grid-cols-3 gap-4">
         {[1, 2, 3].map((id) => {
@@ -41,7 +41,7 @@ const PreviewThumbnails = ({ isGenerating, thumbnails }: PreviewThumbnailsProps)
           const isLoaded = loadedImages.has(id);
           
           return (
-            <div key={id} className="glass-card p-3">
+            <div key={id} className="glass-card p-4 hover:glass-glow transition-all duration-300">
               <div 
                 className="relative bg-muted/20 rounded-lg overflow-hidden mb-3"
                 style={{ aspectRatio: '16/9' }}

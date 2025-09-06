@@ -45,12 +45,12 @@ const ImageUpload = ({ onImageUpload }: ImageUploadProps) => {
   };
 
   return (
-    <div className="space-y-4">
-      <h3 className="text-lg font-semibold text-foreground">Upload Image</h3>
+    <div className="space-y-6">
+      <h3 className="text-xl font-semibold text-foreground">Upload Image</h3>
       
       <div
-        className={`glass-card relative border-2 border-dashed transition-all duration-300 cursor-pointer hover:glass-glow ${
-          dragActive ? "border-primary scale-105" : "border-white/30"
+        className={`glass-card relative border-2 border-dashed transition-all duration-300 cursor-pointer ${
+          dragActive ? "border-lavender scale-105 glass-glow" : "border-lavender/30 hover:border-lavender/50"
         }`}
         onDragEnter={handleDrag}
         onDragLeave={handleDrag}
